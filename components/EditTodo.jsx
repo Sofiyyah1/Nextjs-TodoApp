@@ -4,13 +4,6 @@ export default function EditTodo({ todos, setTodos, editTodo, setEditTodo }) {
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [updatedDescription, setUpdatedDescription] = useState("");
 
-  const updateTodo = (title, description, id, completed) => {
-    const newTodo = todos.map((todo) =>
-      todo.id === id ? { title, description, id, completed } : todo
-    );
-    setTodos(newTodo);
-    setEditTodo("");
-  };
   useEffect(() => {
     if (editTodo) {
       setUpdatedTitle(editTodo.title);
@@ -20,6 +13,14 @@ export default function EditTodo({ todos, setTodos, editTodo, setEditTodo }) {
       setUpdatedDescription("");
     }
   }, [setUpdatedTitle, setUpdatedDescription, editTodo]);
+
+  const updateTodo = (title, description, id, completed) => {
+    const newTodo = todos.map((todo) =>
+      todo.id === id ? { title, description, id, completed } : todo
+    );
+    setTodos(newTodo);
+    setEditTodo("");
+  };
 
   const handleEditTodo = (e) => {
     e.preventDefault();

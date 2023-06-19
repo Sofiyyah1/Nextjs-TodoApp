@@ -5,6 +5,7 @@ import EditTodo from "./EditTodo";
 
 export default function TodoList({ todos, setTodos, filterTodo }) {
   const [editTodo, setEditTodo] = useState(null);
+
   const handleDelete = ({ id }) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
