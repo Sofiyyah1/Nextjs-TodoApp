@@ -1,12 +1,22 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import AddTodo from "@/components/AddTodo";
 import TodoList from "@/components/TodoList";
 import StatusSelect from "@/components/StatusSelect";
 
 export default function Home() {
-  const initialState = JSON.parse(localStorage.getItem("todos")) || [];
-  const [todos, setTodos] = useState(initialState);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    const initialState = JSON.parse(localStorage.getItem("todos")) || [];
+    setTodos(initialState);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   const [status, setStatus] = useState("all");
   const [filterTodo, setFilterTodo] = useState([]);
 
@@ -23,13 +33,10 @@ export default function Home() {
         break;
     }
   };
+
   useEffect(() => {
     filterHandler();
   }, [todos, status]);
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
 
   return (
     <main className="max-w-4xl mx-auto mt-4">
