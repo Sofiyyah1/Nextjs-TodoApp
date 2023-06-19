@@ -7,6 +7,8 @@ import StatusSelect from "@/components/StatusSelect";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
+  const [status, setStatus] = useState("all");
+  const [filterTodo, setFilterTodo] = useState([]);
 
   useEffect(() => {
     const initialState = JSON.parse(localStorage.getItem("todos")) || [];
@@ -17,8 +19,9 @@ export default function Home() {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  const [status, setStatus] = useState("all");
-  const [filterTodo, setFilterTodo] = useState([]);
+  useEffect(() => {
+    filterHandler();
+  }, [todos, status]);
 
   const filterHandler = () => {
     switch (status) {
@@ -33,10 +36,6 @@ export default function Home() {
         break;
     }
   };
-
-  useEffect(() => {
-    filterHandler();
-  }, [todos, status]);
 
   return (
     <main className="max-w-4xl mx-auto mt-4">
